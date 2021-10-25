@@ -24,7 +24,7 @@ public class CocheServiceImpl implements CocheService {
 	@Override
 	@Transactional
 	public HashMap<String, String> alta(Coche c) {
-		return altaAndModificar(c, "Alta");
+		return altaAndModificar(c, 1);
 	}
 
 	/**
@@ -54,7 +54,7 @@ public class CocheServiceImpl implements CocheService {
 	@Override
 	@Transactional
 	public HashMap<String, String> modificar(Coche c) {
-		return altaAndModificar(c, "Modificar");
+		return altaAndModificar(c, 2);
 	}
 
 	/**
@@ -80,7 +80,7 @@ public class CocheServiceImpl implements CocheService {
 	 * @return -> Devuelve un objeto HashMap indicando si est� todo correcto o han habido errores
 	 */
 	@Transactional
-	public HashMap<String, String> altaAndModificar(Coche c, String message) {
+	public HashMap<String, String> altaAndModificar(Coche c, int option) {
 		
 		HashMap<String, String> messages = new HashMap<>();
 		if (c != null) {
@@ -94,14 +94,14 @@ public class CocheServiceImpl implements CocheService {
 				messages.put("Model Error -> ", "El campo Modelo no puede estar vac�o");
 			}
 			if (messages.isEmpty()) {
-				if (message.equals("Alta")) {
+				if (option == 1) {
 					if (this.cocheRepository.alta(c))
-						messages.put(message +" Correcta -> ", "El vehiculo ha sido creado correctamente");
+						messages.put("Alta Correcta -> ", "El vehiculo ha sido creado correctamente");
 					else 
 						messages.put("Persistence Error -> ", "Error contra la base de datos");
 				} else {
 					if (this.cocheRepository.modificar(c))
-						messages.put(message +" Correcta -> ", "El vehiculo ha sido creado correctamente");
+						messages.put("Modificar Correcta -> ", "El vehiculo ha sido creado correctamente");
 					else 
 						messages.put("Persistence Error -> ", "Error contra la base de datos");
 				}
