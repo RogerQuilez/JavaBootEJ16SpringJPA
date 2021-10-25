@@ -160,7 +160,7 @@ public class Main {
 	 */
 	public static void printMessage(HashMap<String, String> message) {
 		System.out.println("***************************************");
-		message.forEach((k, v) -> System.out.println(k + " " + v));
+		message.forEach((k, v) -> System.out.println(k + v));
 		System.out.println("***************************************");
 	}
 }
