@@ -14,13 +14,13 @@ import es.babel.curso.service.CocheService;
 public class Main {
 
 	private static ApplicationContext context;
+	private static Scanner sc = new Scanner(System.in);
 	
 	public static void main(String[] args) {
 		
 		context = new AnnotationConfigApplicationContext(ConfigurationApp.class);
 		CocheService cocheService = context.getBean("cocheServiceImpl", CocheService.class);
 		
-		Scanner sc = new Scanner(System.in);
 		Integer opcion = 1;
 		
 		do {
@@ -34,7 +34,7 @@ public class Main {
 					break;
 			
 				case 1:
-					message = cocheService.alta(getCar(sc, new Coche()));
+					message = cocheService.alta(getCar(new Coche()));
 					printMessage(message);
 					break;
 					
@@ -43,17 +43,17 @@ public class Main {
 					break;
 					
 				case 3:
-					printCar(getCarById(sc, cocheService));
+					printCar(getCarById(cocheService));
 					break;
 					
 				case 4:
-					Coche updateCoche = getCarById(sc, cocheService);
-					message = cocheService.modificar(getCar(sc, updateCoche));
+					Coche updateCoche = getCarById(cocheService);
+					message = cocheService.modificar(getCar(updateCoche));
 					printMessage(message);
 					break;
 					
 				case 5:
-					Coche deleteCoche = getCarById(sc, cocheService);
+					Coche deleteCoche = getCarById(cocheService);
 					message = cocheService.baja(deleteCoche.getId());
 					printMessage(message);
 					break;
@@ -81,7 +81,7 @@ public class Main {
 	 * @return coche -> Devuelve un objeto coche enviado por parametros con los atributos asignados
 	 * por el usuario
 	 */
-	public static Coche getCar(Scanner sc, Coche coche) {
+	public static Coche getCar(Coche coche) {
 		
 		try {
 			
@@ -137,7 +137,7 @@ public class Main {
 	 * @param cocheService -> Servicio para poder obtener el objeto Coche a trav�s de la id
 	 * @return Retorna un coche obtenido por el id que proporciona el cliente
 	 */
-	public static Coche getCarById(Scanner sc, CocheService cocheService) {
+	public static Coche getCarById(CocheService cocheService) {
 		Integer id = null;
 		Coche coche;
 		

@@ -94,10 +94,18 @@ public class CocheServiceImpl implements CocheService {
 				messages.put("Model Error -> ", "El campo Modelo no puede estar vac�o");
 			}
 			if (messages.isEmpty()) {
-				if (this.cocheRepository.alta(c))
-					messages.put(message +" Correcta -> ", "El vehiculo ha sido creado correctamente");
-				else 
-					messages.put("Persistence Error -> ", "Error contra la base de datos");
+				if (message.equals("Alta")) {
+					if (this.cocheRepository.alta(c))
+						messages.put(message +" Correcta -> ", "El vehiculo ha sido creado correctamente");
+					else 
+						messages.put("Persistence Error -> ", "Error contra la base de datos");
+				} else {
+					if (this.cocheRepository.modificar(c))
+						messages.put(message +" Correcta -> ", "El vehiculo ha sido creado correctamente");
+					else 
+						messages.put("Persistence Error -> ", "Error contra la base de datos");
+				}
+				
 			}
 		} else {
 			messages.put("Null Error -> ", "El objeto coche no puede ser nulo");
