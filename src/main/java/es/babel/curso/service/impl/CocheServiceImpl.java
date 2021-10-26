@@ -12,6 +12,7 @@ import es.babel.curso.repository.CocheRepository;
 import es.babel.curso.service.CocheService;
 
 @Service
+@Transactional
 public class CocheServiceImpl implements CocheService {
 
 	@Autowired
@@ -22,7 +23,6 @@ public class CocheServiceImpl implements CocheService {
 	 * @return -> Devuelve un objeto HashMap indicando si est� todo correcto o han habido errores
 	 */
 	@Override
-	@Transactional
 	public HashMap<String, String> alta(Coche c) {
 		return altaAndModificar(c, 1);
 	}
@@ -32,7 +32,6 @@ public class CocheServiceImpl implements CocheService {
 	 * @return -> Devuelve un objeto HashMap indicando si est� todo correcto o han habido errores
 	 */
 	@Override
-	@Transactional
 	public HashMap<String, String> baja(int id) {
 		HashMap<String, String> messages = new HashMap<>();
 		Coche coche = cocheRepository.obtener(id);
@@ -52,7 +51,6 @@ public class CocheServiceImpl implements CocheService {
 	 * @return -> Devuelve un objeto HashMap indicando si est� todo correcto o han habido errores
 	 */
 	@Override
-	@Transactional
 	public HashMap<String, String> modificar(Coche c) {
 		return altaAndModificar(c, 2);
 	}
@@ -79,7 +77,6 @@ public class CocheServiceImpl implements CocheService {
 	 * @param message -> Mensaje indicando si es Alta o Modificaci�n
 	 * @return -> Devuelve un objeto HashMap indicando si est� todo correcto o han habido errores
 	 */
-	@Transactional
 	public HashMap<String, String> altaAndModificar(Coche c, int option) {
 		
 		HashMap<String, String> messages = new HashMap<>();
@@ -101,7 +98,7 @@ public class CocheServiceImpl implements CocheService {
 						messages.put("Persistence Error -> ", "Error contra la base de datos");
 				} else {
 					if (this.cocheRepository.modificar(c))
-						messages.put("Modificar Correcta -> ", "El vehiculo ha sido creado correctamente");
+						messages.put("Modificar Correcta -> ", "El vehiculo ha sido modificado correctamente");
 					else 
 						messages.put("Persistence Error -> ", "Error contra la base de datos");
 				}
